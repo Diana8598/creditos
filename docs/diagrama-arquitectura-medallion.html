@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arquitectura Medallion — Modelo de Créditos y Agencias Comerciales</title>
+<style>
+body{margin:0;padding:24px 16px;background:#f5f7f9}
+.med{font:13px/1.5 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#11181c;max-width:880px;margin:0 auto;padding:4px}
+.med h1{font-size:19px;margin:0 0 2px}
+.med .sub{color:#5f7281;font-size:12px;margin:0 0 14px}
+.med .band{border:1px solid #e3e8ee;border-left:6px solid #6b7785;border-radius:8px;padding:12px 14px;background:#fff;display:flex;gap:14px;align-items:flex-start}
+.med .tag{font-weight:700;font-size:11px;letter-spacing:.05em;color:#fff;border-radius:6px;padding:4px 9px;min-width:64px;text-align:center;flex-shrink:0;margin-top:2px}
+.med .src{border-left-color:#6b7785}.med .src .tag{background:#6b7785}
+.med .bro{border-left-color:#b0793a}.med .bro .tag{background:#b0793a}
+.med .sil{border-left-color:#8795a3}.med .sil .tag{background:#8795a3}
+.med .gol{border-left-color:#caa53d}.med .gol .tag{background:#caa53d}
+.med .con{border-left-color:#3b7dd8}.med .con .tag{background:#3b7dd8}
+.med .body{flex:1}
+.med h2{font-size:14px;margin:0 0 4px}
+.med .desc{color:#5f7281;margin:0 0 8px;font-size:12px}
+.med .chips{display:flex;flex-wrap:wrap;gap:6px}
+.med .chip{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;background:#f2f5f8;border:1px solid #e3e8ee;border-radius:4px;padding:2px 7px}
+.med .arrow{display:flex;align-items:center;justify-content:center;gap:8px;padding:6px 0;color:#5f7281;font-size:11px}
+.med .arrow .gl{color:#8795a3;font-size:14px;line-height:1}
+.med .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.med .tbl{border:1px solid #e3e8ee;border-radius:6px;padding:8px 10px;background:#fbfcfd}
+.med .tbl h3{font-size:12px;margin:0 0 3px;font-family:ui-monospace,Menlo,monospace}
+.med .tbl p{margin:0;font-size:11.5px;color:#5f7281}
+.med .kpis{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;padding:10px 12px;border:1px dashed #b6c0cb;border-radius:8px;background:#f8fafc;font-size:11.5px;color:#3d4b57}
+.med .kpis b{color:#11181c}
+@media (max-width: 640px){.med .grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="med">
+  <h1>Arquitectura Medallion — Modelo de Créditos y Agencias Comerciales</h1>
+  <p class="sub">Pipeline de datos en Databricks · dataset completo BD Creditos.txt · esquema workspace.credito_*</p>
+
+  <div class="band src"><div class="tag">FUENTE</div><div class="body">
+    <h2>BD Creditos.txt — dataset completo</h2>
+    <p class="desc">2.000 créditos · TSV delimitado por tabulaciones · números en formato español (coma decimal, punto de miles) · 39 columnas: cliente, crédito, agencia y metas de oficina</p>
+  </div></div>
+
+  <div class="arrow"><span class="gl">▼</span><span>read_files (formato csv, separador tab, renombrado de columnas con espacios)</span></div>
+
+  <div class="band bro"><div class="tag">BRONCE</div><div class="body">
+    <h2>credito_bronce.creditos_raw — ingesta cruda</h2>
+    <p class="desc">Datos tal cual del archivo fuente, sin transformaciones · columnas con espacios renombradas para Delta · trazabilidad con _ingested_at y _source_file</p>
+    <div class="chips"><span class="chip">2.000 filas</span><span class="chip">2.000 créditos únicos</span></div>
+  </div></div>
+
+  <div class="arrow"><span class="gl">▼</span><span>limpieza + tipado + deduplicación por id_credito</span></div>
+
+  <div class="band sil"><div class="tag">SILVER</div><div class="body">
+    <h2>credito_silver.creditos_clientes — datos limpios y tipados</h2>
+    <p class="desc">Números en formato español → DECIMAL · fecha serial Excel → DATE · trim de textos · rango_mora y flag_en_mora · derivados: muestra de clientes (5%) y EDA</p>
+    <div class="chips"><span class="chip">2.000 créditos</span><span class="chip">1.900 clientes</span><span class="chip">jun–oct 2026</span><span class="chip">0 nulos en montos</span></div>
+  </div></div>
+
+  <div class="arrow"><span class="gl">▼</span><span>agregaciones por agencia y por mes</span></div>
+
+  <div class="band gol"><div class="tag">GOLD</div><div class="body">
+    <h2>credito_gold — métricas de negocio por agencia comercial</h2>
+    <div class="grid2">
+      <div class="tbl"><h3>metricas_agencia (8 agencias)</h3><p>Colocación y ticket promedio · % créditos en mora · IMOR · colocación por asesor · clientes por asesor · cumplimiento de meta</p></div>
+      <div class="tbl"><h3>colocacion_mensual (40 filas)</h3><p>Tendencia mensual de colocación por agencia · créditos colocados · ticket promedio · créditos en mora por mes</p></div>
+    </div>
+  </div></div>
+
+  <div class="arrow"><span class="gl">▼</span><span>consulta de tablas gold</span></div>
+
+  <div class="band con"><div class="tag">CONSUMO</div><div class="body">
+    <h2>Dashboard AI/BI y Power BI</h2>
+    <p class="desc">Dashboard con KPIs, colocación por agencia, riesgo de mora y productividad comercial · Power BI conectado vía conector Databricks a las tablas gold</p>
+  </div></div>
+
+  <div class="kpis">
+    <span><b>2.000</b> créditos</span><span><b>1.900</b> clientes</span><span><b>$55.800,7 MM</b> colocados</span>
+    <span><b>23,5%</b> créditos en mora</span><span><b>IMOR 24,1%</b></span><span><b>8</b> agencias comerciales</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,789 @@
+{
+  "datasets": [
+    {
+      "name": "43c41558",
+      "displayName": "colocacion_mensual",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.credito_gold.colocacion_mensual",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          },
+          {
+            "name": "oficina",
+            "expr": "concat(CAST(source.codigo_oficina AS STRING), ' - ', source.municipio)",
+            "displayName": "Oficina"
+          }
+        ],
+        "measures": [
+          {
+            "name": "monto_total",
+            "expr": "SUM(source.monto_colocado)",
+            "displayName": "Monto colocado",
+            "format": {
+              "type": "currency",
+              "currencyCode": "COP",
+              "abbreviation": "compact"
+            }
+          },
+          {
+            "name": "creditos_totales",
+            "expr": "SUM(source.creditos_colocados)",
+            "displayName": "Créditos colocados"
+          },
+          {
+            "name": "mora_total",
+            "expr": "SUM(source.creditos_en_mora)",
+            "displayName": "Créditos en mora"
+          },
+          {
+            "name": "ticket_promedio_medio",
+            "expr": "AVG(source.ticket_promedio)",
+            "displayName": "Ticket promedio",
+            "format": {
+              "type": "currency",
+              "currencyCode": "COP",
+              "abbreviation": "compact"
+            }
+          },
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "da9175a1",
+      "displayName": "creditos_raw",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.credito_bronze.creditos_raw",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "07a757ef",
+      "displayName": "creditos",
+      "layout": [
+        {
+          "widget": {
+            "name": "kpi_creditos_totales",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "measure(creditos_totales)",
+                      "expression": "MEASURE(`creditos_totales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Créditos colocados"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(creditos_totales)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_monto_total",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "measure(monto_total)",
+                      "expression": "MEASURE(`monto_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Monto colocado"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(monto_total)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_ticket_promedio",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "measure(ticket_promedio_medio)",
+                      "expression": "MEASURE(`ticket_promedio_medio`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Ticket promedio"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(ticket_promedio_medio)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_mora_total",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "measure(mora_total)",
+                      "expression": "MEASURE(`mora_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Créditos en mora"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(mora_total)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_monto_oficina",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "oficina",
+                      "expression": "`oficina`"
+                    },
+                    {
+                      "name": "measure(monto_total)",
+                      "expression": "MEASURE(`monto_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Monto colocado por oficina"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "oficina",
+                  "displayName": "oficina",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(monto_total)",
+                  "displayName": "monto_total",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "oficina",
+                  "displayName": "oficina",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "line_evolucion_mensual",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "oficina",
+                      "expression": "`oficina`"
+                    },
+                    {
+                      "name": "monthly(mes)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `mes`)"
+                    },
+                    {
+                      "name": "measure(monto_total)",
+                      "expression": "MEASURE(`monto_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Evolución mensual del monto colocado"
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(mes)",
+                  "displayName": "Mes",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(monto_total)",
+                  "displayName": "monto_total",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "oficina",
+                  "displayName": "oficina",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_creditos_oficina",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "oficina",
+                      "expression": "`oficina`"
+                    },
+                    {
+                      "name": "measure(creditos_totales)",
+                      "expression": "MEASURE(`creditos_totales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Créditos colocados por oficina"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "oficina",
+                  "displayName": "oficina",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(creditos_totales)",
+                  "displayName": "creditos_totales",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "oficina",
+                  "displayName": "oficina",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_mora_oficina",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "oficina",
+                      "expression": "`oficina`"
+                    },
+                    {
+                      "name": "measure(mora_total)",
+                      "expression": "MEASURE(`mora_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Créditos en mora por oficina"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "oficina",
+                  "displayName": "oficina",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(mora_total)",
+                  "displayName": "mora_total",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "oficina",
+                  "displayName": "oficina",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 9,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_ticket_oficina",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "oficina",
+                      "expression": "`oficina`"
+                    },
+                    {
+                      "name": "measure(ticket_promedio_medio)",
+                      "expression": "MEASURE(`ticket_promedio_medio`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Ticket promedio por oficina"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "oficina",
+                  "displayName": "oficina",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(ticket_promedio_medio)",
+                  "displayName": "ticket_promedio_medio",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "oficina",
+                  "displayName": "oficina",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 9,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "pivot_monto_oficina_mes",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "oficina",
+                      "expression": "`oficina`"
+                    },
+                    {
+                      "name": "monthly(mes)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `mes`)"
+                    },
+                    {
+                      "name": "measure(monto_total)",
+                      "expression": "MEASURE(`monto_total`)"
+                    }
+                  ],
+                  "cubeGroupingSets": {
+                    "sets": [
+                      {
+                        "fieldNames": [
+                          "oficina"
+                        ]
+                      },
+                      {
+                        "fieldNames": [
+                          "monthly(mes)"
+                        ]
+                      }
+                    ]
+                  },
+                  "disaggregated": false,
+                  "orders": [
+                    {
+                      "direction": "ASC",
+                      "expression": "`oficina`"
+                    },
+                    {
+                      "direction": "ASC",
+                      "expression": "DATE_TRUNC(\"MONTH\", `mes`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Monto colocado por oficina y mes"
+              },
+              "version": 3,
+              "widgetType": "pivot",
+              "encodings": {
+                "rows": [
+                  {
+                    "fieldName": "oficina"
+                  }
+                ],
+                "columns": [
+                  {
+                    "fieldName": "monthly(mes)"
+                  }
+                ],
+                "cell": {
+                  "type": "single-cell",
+                  "fieldName": "measure(monto_total)",
+                  "cellType": "text"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 12,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "tabla_detalle_oficina",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "43c41558",
+                  "fields": [
+                    {
+                      "name": "oficina",
+                      "expression": "`oficina`"
+                    },
+                    {
+                      "name": "mes",
+                      "expression": "`mes`"
+                    },
+                    {
+                      "name": "measure(creditos_totales)",
+                      "expression": "MEASURE(`creditos_totales`)"
+                    },
+                    {
+                      "name": "measure(monto_total)",
+                      "expression": "MEASURE(`monto_total`)"
+                    },
+                    {
+                      "name": "measure(ticket_promedio_medio)",
+                      "expression": "MEASURE(`ticket_promedio_medio`)"
+                    },
+                    {
+                      "name": "measure(mora_total)",
+                      "expression": "MEASURE(`mora_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Detalle mensual por oficina"
+              },
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "oficina"
+                  },
+                  {
+                    "fieldName": "mes"
+                  },
+                  {
+                    "fieldName": "measure(creditos_totales)"
+                  },
+                  {
+                    "fieldName": "measure(monto_total)"
+                  },
+                  {
+                    "fieldName": "measure(ticket_promedio_medio)"
+                  },
+                  {
+                    "fieldName": "measure(mora_total)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 21,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#EBEBEB",
+        "dark": "#10161B"
+      },
+      "widgetBackgroundColor": {
+        "light": "#FCFCFD",
+        "dark": "#1F272D"
+      },
+      "widgetBorderColor": {
+        "light": "#FCFCFD",
+        "dark": "#1F272D"
+      },
+      "selectionColor": {
+        "light": "#2272B4"
+      },
+      "visualizationColors": [
+        "#15AFDD",
+        "#2375A8",
+        "#52A870",
+        "#C85070",
+        "#C89930",
+        "#6C58A8",
+        "#2E9E8F",
+        "#B85C38",
+        "#7A9E3F"
+      ],
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED",
+      "fontSettings": {
+        "base": {
+          "fontFamily": "Inter"
+        }
+      }
+    },
+    "applyModeEnabled": false
+  }
+}

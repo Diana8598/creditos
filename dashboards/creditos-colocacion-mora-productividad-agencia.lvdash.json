@@ -1,0 +1,925 @@
+{
+  "datasets": [
+    {
+      "name": "colocacion_mensual",
+      "displayName": "Colocación Mensual (Gold)",
+      "config": {
+        "source": "workspace.credito_gold.colocacion_mensual",
+        "measures": [
+          {
+            "name": "monto_colocado_MM",
+            "expr": "SUM(monto_colocado) / 1000000",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "creditos_colocados_total",
+            "expr": "SUM(creditos_colocados)"
+          },
+          {
+            "name": "creditos_mora_total",
+            "expr": "SUM(creditos_en_mora)"
+          }
+        ],
+        "version": "1.1",
+        "comment": "Colocación mensual por agencia, junio a octubre 2026 (capa gold)",
+        "dimensions": [
+          {
+            "expr": "mes",
+            "format": {
+              "type": "date",
+              "dateFormat": "locale_short_month"
+            }
+          },
+          {
+            "expr": "codigo_oficina"
+          },
+          {
+            "expr": "municipio"
+          }
+        ]
+      }
+    },
+    {
+      "name": "creditos_clientes",
+      "displayName": "Créditos y Clientes (Silver)",
+      "config": {
+        "source": "workspace.credito_silver.creditos_clientes",
+        "measures": [
+          {
+            "name": "monto_desembolsado_MM",
+            "expr": "SUM(monto_desembolsado) / 1000000",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "saldo_capital_MM",
+            "expr": "SUM(saldo_capital) / 1000000"
+          },
+          {
+            "name": "num_creditos",
+            "expr": "COUNT(1)"
+          },
+          {
+            "name": "score_promedio",
+            "expr": "AVG(score_crediticio)"
+          },
+          {
+            "name": "edad_promedio",
+            "expr": "AVG(edad)"
+          },
+          {
+            "name": "pct_creditos_mora",
+            "expr": "SUM(flag_en_mora) / COUNT(1)",
+            "format": {
+              "type": "percentage",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          }
+        ],
+        "version": "1.1",
+        "comment": "Detalle por crédito y cliente (capa silver)",
+        "dimensions": [
+          {
+            "expr": "tipo_credito"
+          },
+          {
+            "expr": "codigo_oficina"
+          },
+          {
+            "expr": "municipio"
+          },
+          {
+            "expr": "rango_mora"
+          },
+          {
+            "expr": "genero"
+          }
+        ]
+      }
+    },
+    {
+      "name": "metricas_agencia",
+      "displayName": "Métricas por Agencia (Gold)",
+      "config": {
+        "source": "workspace.credito_gold.metricas_agencia",
+        "measures": [
+          {
+            "name": "monto_colocado_MM",
+            "expr": "SUM(monto_colocado) / 1000000",
+            "displayName": "Monto colocado ($MM)",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "creditos_colocados_total",
+            "expr": "SUM(creditos_colocados)"
+          },
+          {
+            "name": "creditos_mora_total",
+            "expr": "SUM(creditos_en_mora)"
+          },
+          {
+            "name": "saldo_mora_MM",
+            "expr": "SUM(saldo_capital_en_mora) / 1000000",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "pct_creditos_mora",
+            "expr": "SUM(creditos_en_mora) / NULLIF(SUM(creditos_colocados), 0)",
+            "displayName": "% créditos en mora",
+            "format": {
+              "type": "percentage",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "imor",
+            "expr": "SUM(saldo_capital_en_mora) / NULLIF(SUM(saldo_capital_total), 0)",
+            "displayName": "IMOR",
+            "format": {
+              "type": "percentage",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "score_prom",
+            "expr": "AVG(score_promedio)",
+            "displayName": "Score promedio"
+          },
+          {
+            "name": "dias_mora_prom",
+            "expr": "AVG(dias_mora_promedio)"
+          },
+          {
+            "name": "ticket_promedio_MM",
+            "expr": "SUM(monto_colocado) / NULLIF(SUM(creditos_colocados), 0) / 1000000",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "coloc_asesor_MM",
+            "expr": "(SUM(monto_colocado) / 1000000) / NULLIF(SUM(numero_asesores), 0)",
+            "displayName": "Colocación por asesor ($MM)",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "clientes_asesor",
+            "expr": "SUM(clientes_activos) / NULLIF(SUM(numero_asesores), 0)",
+            "displayName": "Clientes por asesor",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 0.0
+              }
+            }
+          },
+          {
+            "name": "cumplimiento_meta",
+            "expr": "SUM(desembolso_acumulado) / NULLIF(SUM(meta_historica), 0)",
+            "displayName": "Cumplimiento de meta",
+            "format": {
+              "type": "percentage",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "asesores_total",
+            "expr": "SUM(numero_asesores)"
+          }
+        ],
+        "version": "1.1",
+        "comment": "Métricas de colocación, mora y productividad por agencia comercial (capa gold)",
+        "dimensions": [
+          {
+            "expr": "codigo_oficina"
+          },
+          {
+            "expr": "zona"
+          },
+          {
+            "expr": "municipio"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "e19c623d",
+      "displayName": "Page 1",
+      "layout": [
+        {
+          "widget": {
+            "name": "bar_monto_agencia",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "metricas_agencia",
+                  "fields": [
+                    {
+                      "name": "zona",
+                      "expression": "`zona`"
+                    },
+                    {
+                      "name": "measure(monto_colocado_MM)",
+                      "expression": "MEASURE(`monto_colocado_MM`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Monto Colocado por Agencia ($MM)",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "zona",
+                  "displayName": "Agencia (Zona)",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(monto_colocado_MM)",
+                  "displayName": "Monto Colocado ($MM)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_monto_colocado",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "metricas_agencia",
+                  "fields": [
+                    {
+                      "name": "measure(monto_colocado_MM)",
+                      "expression": "MEASURE(`monto_colocado_MM`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Monto Colocado ($MM)"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(monto_colocado_MM)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_mora_imor",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "metricas_agencia",
+                  "fields": [
+                    {
+                      "name": "zona",
+                      "expression": "`zona`"
+                    },
+                    {
+                      "name": "measure(pct_creditos_mora)",
+                      "expression": "MEASURE(`pct_creditos_mora`)"
+                    },
+                    {
+                      "name": "measure(imor)",
+                      "expression": "MEASURE(`imor`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Riesgo de Mora por Agencia",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "layout": "group"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "zona",
+                  "displayName": "Agencia (Zona)",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "measure(pct_creditos_mora)",
+                      "displayName": "% Créditos en Mora"
+                    },
+                    {
+                      "fieldName": "measure(imor)",
+                      "displayName": "IMOR"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_creditos_colocados",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "metricas_agencia",
+                  "fields": [
+                    {
+                      "name": "measure(creditos_colocados_total)",
+                      "expression": "MEASURE(`creditos_colocados_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Créditos Colocados"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(creditos_colocados_total)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "scatter_score_mora",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "metricas_agencia",
+                  "fields": [
+                    {
+                      "name": "zona",
+                      "expression": "`zona`"
+                    },
+                    {
+                      "name": "municipio",
+                      "expression": "`municipio`"
+                    },
+                    {
+                      "name": "measure(score_prom)",
+                      "expression": "MEASURE(`score_prom`)"
+                    },
+                    {
+                      "name": "measure(pct_creditos_mora)",
+                      "expression": "MEASURE(`pct_creditos_mora`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Score Promedio vs % Mora por Agencia",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "scatter",
+              "encodings": {
+                "x": {
+                  "fieldName": "measure(score_prom)",
+                  "displayName": "Score Promedio",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(pct_creditos_mora)",
+                  "displayName": "% Créditos en Mora",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "extra": [
+                  {
+                    "fieldName": "zona"
+                  },
+                  {
+                    "fieldName": "municipio"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 4,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_pct_mora",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "metricas_agencia",
+                  "fields": [
+                    {
+                      "name": "measure(pct_creditos_mora)",
+                      "expression": "MEASURE(`pct_creditos_mora`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "% Créditos en Mora"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(pct_creditos_mora)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_imor",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "metricas_agencia",
+                  "fields": [
+                    {
+                      "name": "measure(imor)",
+                      "expression": "MEASURE(`imor`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "IMOR"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(imor)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_coloc_asesor",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "metricas_agencia",
+                  "fields": [
+                    {
+                      "name": "measure(coloc_asesor_MM)",
+                      "expression": "MEASURE(`coloc_asesor_MM`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Colocación por Asesor ($MM)"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(coloc_asesor_MM)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "line_colocacion_mensual",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "colocacion_mensual",
+                  "fields": [
+                    {
+                      "name": "mes",
+                      "expression": "`mes`"
+                    },
+                    {
+                      "name": "measure(monto_colocado_MM)",
+                      "expression": "MEASURE(`monto_colocado_MM`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Tendencia Mensual de Colocación ($MM)"
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "mes",
+                  "displayName": "Mes",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(monto_colocado_MM)",
+                  "displayName": "monto_colocado_MM",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "pie_tipo_credito",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "creditos_clientes",
+                  "fields": [
+                    {
+                      "name": "measure(monto_desembolsado_MM)",
+                      "expression": "MEASURE(`monto_desembolsado_MM`)"
+                    },
+                    {
+                      "name": "tipo_credito",
+                      "expression": "`tipo_credito`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Colocación por Tipo de Crédito ($MM)"
+              },
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "measure(monto_desembolsado_MM)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "monto_desembolsado_MM"
+                },
+                "color": {
+                  "fieldName": "tipo_credito",
+                  "displayName": "tipo_credito",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 7,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "table_productividad",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "metricas_agencia",
+                  "fields": [
+                    {
+                      "name": "municipio",
+                      "expression": "`municipio`"
+                    },
+                    {
+                      "name": "zona",
+                      "expression": "`zona`"
+                    },
+                    {
+                      "name": "measure(asesores_total)",
+                      "expression": "MEASURE(`asesores_total`)"
+                    },
+                    {
+                      "name": "measure(creditos_colocados_total)",
+                      "expression": "MEASURE(`creditos_colocados_total`)"
+                    },
+                    {
+                      "name": "measure(monto_colocado_MM)",
+                      "expression": "MEASURE(`monto_colocado_MM`)"
+                    },
+                    {
+                      "name": "measure(pct_creditos_mora)",
+                      "expression": "MEASURE(`pct_creditos_mora`)"
+                    },
+                    {
+                      "name": "measure(imor)",
+                      "expression": "MEASURE(`imor`)"
+                    },
+                    {
+                      "name": "measure(dias_mora_prom)",
+                      "expression": "MEASURE(`dias_mora_prom`)"
+                    },
+                    {
+                      "name": "measure(coloc_asesor_MM)",
+                      "expression": "MEASURE(`coloc_asesor_MM`)"
+                    },
+                    {
+                      "name": "measure(clientes_asesor)",
+                      "expression": "MEASURE(`clientes_asesor`)"
+                    },
+                    {
+                      "name": "measure(cumplimiento_meta)",
+                      "expression": "MEASURE(`cumplimiento_meta`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Productividad y Riesgo por Agencia"
+              },
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "municipio"
+                  },
+                  {
+                    "fieldName": "zona"
+                  },
+                  {
+                    "fieldName": "measure(asesores_total)"
+                  },
+                  {
+                    "fieldName": "measure(creditos_colocados_total)"
+                  },
+                  {
+                    "fieldName": "measure(monto_colocado_MM)"
+                  },
+                  {
+                    "fieldName": "measure(pct_creditos_mora)"
+                  },
+                  {
+                    "fieldName": "measure(imor)"
+                  },
+                  {
+                    "fieldName": "measure(dias_mora_prom)"
+                  },
+                  {
+                    "fieldName": "measure(coloc_asesor_MM)"
+                  },
+                  {
+                    "fieldName": "measure(clientes_asesor)"
+                  },
+                  {
+                    "fieldName": "measure(cumplimiento_meta)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 12,
+            "width": 8,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
