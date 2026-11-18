@@ -230,6 +230,9 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
 * **Dashboard “Colocación de Créditos por Oficina”**: 4 KPIs (total 2.000 créditos, $55.800,7M, ticket promedio $27,4M, 470 en mora), barras por oficina, línea mensual, pivote oficina × mes (jun–oct 2026) y tabla de detalle, con montos en COP compacto.
 * **Power BI:** conexión directa vía conector Databricks sobre las tablas gold (misma fuente de verdad).
 
+* <img width="1211" height="706" alt="image" src="https://github.com/user-attachments/assets/3dcaa929-a906-4957-9f40-2114ada60ef2" />
+
+
 ### 6.2 Serving Endpoint
 
 * Endpoint de Model Serving **“creditos”** (estado READY) que expone `workspace.credito_ml.modelo_riesgo_mora` v1; invocación por `dataframe_records` con las 14 features.
