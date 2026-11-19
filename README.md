@@ -226,7 +226,10 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
  <img width="1034" height="784" alt="image" src="https://github.com/user-attachments/assets/7b013aa5-64ce-4756-9034-93e24f9fcae3" />
 
 
-* **APP "Scoring de Riesgo de Mora" Score crediticio permite a las entidades financieras evaluar el nivel de riesgo y facilitar a mejores condiciones de crédito. 
+* **APP "Scoring de Riesgo de Mora" Score crediticio permite a las entidades financieras evaluar el nivel de riesgo y facilitar a mejores condiciones de crédito.
+  <img width="1034" height="630" alt="image" src="https://github.com/user-attachments/assets/a364069a-06e8-46eb-9e98-0952a7761fdc" />
+
+   
 * **Dashboard “Créditos - Colocación, Mora y Productividad por Agencia”**: KPIs de colocación, IMOR y productividad sobre las tablas gold.
 * **Dashboard “Colocación de Créditos por Oficina”**: 4 KPIs (total 2.000 créditos, $55.800,7M, ticket promedio $27,4M, 470 en mora), barras por oficina, línea mensual, pivote oficina × mes (jun–oct 2026) y tabla de detalle, con montos en COP compacto.
 * **Power BI:** conexión directa vía conector Databricks sobre las tablas gold (misma fuente de verdad).
