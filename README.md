@@ -98,7 +98,8 @@ El EDA identifica dónde está el margen:
 
 ### 3.1 Diagrama de arquitectura
 
-   <img width="802" height="645" alt="image" src="https://github.com/user-attachments/assets/eb60d91e-feaf-4c99-82bd-26e7b8ed1e04" />
+   <img width="650" height="472" alt="image" src="https://github.com/user-attachments/assets/e130f963-96d4-45b9-9685-8cd5550d920b" />
+
 
 
 > Versión visual del diagrama (capas medallion + ML + consumo): [`docs/diagrama-arquitectura-medallion.html`](docs/diagrama-arquitectura-medallion.html)
