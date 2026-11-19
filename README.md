@@ -15,7 +15,7 @@ Este README resuelve, numeral por numeral, el enunciado del proyecto final aplic
 
 ## Tabla de contenido
 
-1. Caso de Negocio 
+1. [Caso de Negocio]
 2. Relación Beneficio/Costo 
 3. Arquitectura Propuesta 
 4. Pipeline de Ingesta de Datos 
