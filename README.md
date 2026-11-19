@@ -225,8 +225,9 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
 
  <img width="1034" height="784" alt="image" src="https://github.com/user-attachments/assets/7b013aa5-64ce-4756-9034-93e24f9fcae3" />
 
-
-* **APP "Scoring de Riesgo de Mora" Score crediticio permite a las entidades financieras evaluar el nivel de riesgo y facilitar a mejores condiciones de crédito.
+## APP "Scoring de Riesgo de Mora"
+   Score crediticio permite a las entidades financieras evaluar el nivel de riesgo y facilitar a mejores condiciones de crédito.
+   
   <img width="1034" height="630" alt="image" src="https://github.com/user-attachments/assets/a364069a-06e8-46eb-9e98-0952a7761fdc" />
 
    
