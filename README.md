@@ -15,18 +15,18 @@ Este README resuelve, numeral por numeral, el enunciado del proyecto final aplic
 
 ## Tabla de contenido
 
-1. [Caso de Negocio (10%)](#1-caso-de-negocio-10)
-2. [Relación Beneficio/Costo (10%)](#2-relación-beneficiocosto-10)
-3. [Arquitectura Propuesta (10%)](#3-arquitectura-propuesta-10)
-4. [Pipeline de Ingesta de Datos (50%)](#4-pipeline-de-ingesta-de-datos-50)
-5. [Modelos de Ciencia de Datos (8%)](#5-modelos-de-ciencia-de-datos-8)
-6. [App o Visualization (8%)](#6-app-o-visualization-8)
-7. [Continuous Integration (CI/CD)](#7-continuous-integration-cicd)
-8. [Anexo: activos del proyecto (Databricks)](#anexo-activos-del-proyecto-databricks)
+1. Caso de Negocio 
+2. Relación Beneficio/Costo 
+3. Arquitectura Propuesta 
+4. Pipeline de Ingesta de Datos 
+5. Modelos de Ciencia de Datos 
+6. App o Visualization 
+   [Continuous Integration (CI/CD)
+8. Anexo: activos del proyecto (Databricks)
 
 ---
 
-## 1. Caso de Negocio (10%)
+## 1. Caso de Negocio 
 
 ### 1.1 Descripción del problema
 La entidad financiera del caso desembolsa créditos en 8 agencias del área metropolitana del Valle de Aburrá sin una visión unificada de colocación, riesgo y productividad:
@@ -57,7 +57,7 @@ Convertir un archivo operativo (Excel/TSV con datos sucios) en una **plataforma 
 
 ---
 
-## 2. Relación Beneficio/Costo (10%)
+## 2. Relación Beneficio/Costo 
 
 ### 2.1 Análisis económico
 
@@ -92,7 +92,7 @@ El EDA identifica dónde está el margen:
 
 ---
 
-## 3. Arquitectura Propuesta (10%)
+## 3. Arquitectura Propuesta 
 
 ### 3.1 Diagrama de arquitectura
 
@@ -119,7 +119,7 @@ flowchart LR
 
 ---
 
-## 4. Pipeline de Ingesta de Datos (50%)
+## 4. Pipeline de Ingesta de Datos 
 
 ### 4.1 Estrategia medallion
 
@@ -168,7 +168,7 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
 
 ---
 
-## 5. Modelos de Ciencia de Datos (8%)
+## 5. Modelos de Ciencia de Datos 
 
 ### 5.1 Estadística descriptiva (EDA)
 
@@ -222,7 +222,7 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
 
 ---
 
-## 6. App o Visualization (8%)
+## 6. App o Visualization 
 
 ### 6.1 Visualization
 
@@ -232,7 +232,7 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
 
 * <img width="1211" height="706" alt="image" src="https://github.com/user-attachments/assets/3dcaa929-a906-4957-9f40-2114ada60ef2" />
 
-
+{"clipboardKey":"lakeview-dashboards-unifiedClipboard-clipboard","widgets":[{"name":"dashboards/01f1e378b3301fcdaa06f8c51c1aaca6/pages/01f1e378b33114e79b965541e1b37f74/widgets/01f1e378b33114f09a4859ea53702691","content":{"name":"dashboards/01f1e378b3301fcdaa06f8c51c1aaca6/pages/01f1e378b33114e79b965541e1b37f74/widgets/01f1e378b33114f09a4859ea53702691","displayName":"","queries":[{"queryName":"main_query","query":{"datasetName":"dashboards/01f1e378b3301fcdaa06f8c51c1aaca6/datasets/01f1e378b33114d89e63ad6caead9e0b","fields":[{"expression":"`oficina`","fieldName":"oficina"},{"expression":"DATE_TRUNC(\"MONTH\", `mes`)","fieldName":"monthly(mes)"},{"expression":"MEASURE(`monto_total`)","fieldName":"measure(monto_total)"}],"disaggregatedData":false,"orderBys":[{"direction":1,"expression":"`oficina`"},{"direction":1,"expression":"DATE_TRUNC(\"MONTH\", `mes`)"}],"parameterValues":[],"filters":[],"cubeGroupingSets":[{"fieldNames":["oficina"]},{"fieldNames":["monthly(mes)"]}]}}],"parameterQueries":[],"renderSpec":{"type":1,"vizRenderSpec":{"widgetContent":{"frame":{"showTitle":true,"title":{"value":"Monto colocado por oficina y mes","fields":[]}},"version":4,"widgetType":"pivot","encodings":{"rows":{"fields":[{"fieldName":"oficina","scale":{"type":"categorical"}}]},"columns":{"fields":[{"fieldName":"monthly(mes)","scale":{"type":"categorical"}}]},"cells":{"displayAs":"rows","fields":[{"fieldName":"measure(monto_total)","cellType":"text"}]}},"data":{"queryName":"main_query"}}}},"etag":"291975314","customerRefId":"pivot_monto_oficina_mes","parseWarnings":[],"upgradeStatus":{"warnings":[]},"upgradeFailed":false},"layout":{"widgetName":"dashboards/01f1e378b3301fcdaa06f8c51c1aaca6/pages/01f1e378b33114e79b965541e1b37f74/widgets/01f1e378b33114f09a4859ea53702691","xCoordinate":0,"yCoordinate":14,"width":12,"height":7},"datasets":[{"name":"dashboards/01f1e378b3301fcdaa06f8c51c1aaca6/datasets/01f1e378b33114d89e63ad6caead9e0b","displayName":"colocacion_mensual","etag":"1811692749","parameters":[],"parameterDomains":[],"columns":[],"customerRefId":"43c41558","metricViewConfig":"version: \"1.1\"\nsource: workspace.credito_gold.colocacion_mensual\ndimensions:\n  - expr: source.*\n  - name: oficina\n    expr: \"concat(CAST(source.codigo_oficina AS STRING), ' - ', source.municipio)\"\n    display_name: Oficina\nmeasures:\n  - name: monto_total\n    expr: SUM(source.monto_colocado)\n    display_name: Monto colocado\n    format:\n      type: currency\n      currency_code: COP\n      abbreviation: compact\n  - name: creditos_totales\n    expr: SUM(source.creditos_colocados)\n    display_name: Créditos colocados\n  - name: mora_total\n    expr: SUM(source.creditos_en_mora)\n    display_name: Créditos en mora\n  - name: ticket_promedio_medio\n    expr: AVG(source.ticket_promedio)\n    display_name: Ticket promedio\n    format:\n      type: currency\n      currency_code: COP\n      abbreviation: compact\n  - name: count\n    expr: COUNT(*)\n    comment: Represents the total number of rows in the dataset. Use this measure to count all\n    display_name: Count\n"}]}],"sourcePageName":"dashboards/01f1e378b3301fcdaa06f8c51c1aaca6/pages/01f1e378b33114e79b965541e1b37f74"}
 ### 6.2 Serving Endpoint
 
 * Endpoint de Model Serving **“creditos”** (estado READY) que expone `workspace.credito_ml.modelo_riesgo_mora` v1; invocación por `dataframe_records` con las 14 features.
