@@ -107,6 +107,7 @@ flowchart LR
     G --> H["Databricks App: scoring-creditos"]
     D -.metadatos/calidad.-> I["Unity Catalog<br/>(linaje, permisos, tags)"]
 ```
+   <img width="894" height="720" alt="image" src="https://github.com/user-attachments/assets/d1abef30-dc08-403c-b785-037b32472009" />
 
 ### 3.2 Explicación técnica
 
