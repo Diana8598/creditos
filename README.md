@@ -221,6 +221,10 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
 ## 6. App o Visualization 
 
 ### 6.1 Visualization
+## Orquestación con Databricks Jobs
+
+ <img width="1034" height="784" alt="image" src="https://github.com/user-attachments/assets/7b013aa5-64ce-4756-9034-93e24f9fcae3" />
+
 
 * **APP "Scoring de Riesgo de Mora" Score crediticio permite a las entidades financieras evaluar el nivel de riesgo y facilitar a mejores condiciones de crédito. 
 * **Dashboard “Créditos - Colocación, Mora y Productividad por Agencia”**: KPIs de colocación, IMOR y productividad sobre las tablas gold.
