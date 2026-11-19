@@ -230,10 +230,10 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
 * **Dashboard “Colocación de Créditos por Oficina”**: 4 KPIs (total 2.000 créditos, $55.800,7M, ticket promedio $27,4M, 470 en mora), barras por oficina, línea mensual, pivote oficina × mes (jun–oct 2026) y tabla de detalle, con montos en COP compacto.
 * **Power BI:** conexión directa vía conector Databricks sobre las tablas gold (misma fuente de verdad).
 
-  **<img width="1211" height="706" alt="image" src="https://github.com/user-attachments/assets/3dcaa929-a906-4957-9f40-2114ada60ef2" />
-  **<img width="1228" height="278" alt="image" src="https://github.com/user-attachments/assets/4bc88d35-9630-43f7-9b63-3babc551d0ae" />
-  **<img width="1222" height="378" alt="image" src="https://github.com/user-attachments/assets/1a53839d-d92d-4bea-a6da-c28a798cb656" />
-  **<img width="1194" height="370" alt="image" src="https://github.com/user-attachments/assets/ddbf3961-9b30-4de7-9be3-352be63248b9" />
+  <img width="1211" height="706" alt="image" src="https://github.com/user-attachments/assets/3dcaa929-a906-4957-9f40-2114ada60ef2" />
+  <img width="1228" height="278" alt="image" src="https://github.com/user-attachments/assets/4bc88d35-9630-43f7-9b63-3babc551d0ae" />
+  <img width="1222" height="378" alt="image" src="https://github.com/user-attachments/assets/1a53839d-d92d-4bea-a6da-c28a798cb656" />
+  <img width="1194" height="370" alt="image" src="https://github.com/user-attachments/assets/ddbf3961-9b30-4de7-9be3-352be63248b9" />
 
 
 
