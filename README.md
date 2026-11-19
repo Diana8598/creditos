@@ -98,19 +98,7 @@ El EDA identifica dónde está el margen:
 
 ### 3.1 Diagrama de arquitectura
 
-```mermaid
-flowchart LR
-    A["Fuente: BD Creditos.xlsx / .txt"] --> B["BRONZE<br/>workspace.credito_bronze.creditos_raw<br/>ingesta cruda (Delta)"]
-    B --> C["SILVER<br/>workspace.credito_silver.creditos_clientes<br/>limpieza, tipado, dedup, rango_mora"]
-    C --> D["GOLD<br/>workspace.credito_gold.metricas_agencia<br/>workspace.credito_gold.colocacion_mensual"]
-    D --> E["Dashboards Databricks / Power BI"]
-    C --> F["MLflow: modelo_riesgo_mora v1<br/>(Regresión Logística)"]
-    F --> G["Serving Endpoint: creditos"]
-    G --> H["Databricks App: scoring-creditos"]
-    D -.metadatos/calidad.-> I["Unity Catalog<br/>(linaje, permisos, tags)"]
-```
    <img width="802" height="645" alt="image" src="https://github.com/user-attachments/assets/eb60d91e-feaf-4c99-82bd-26e7b8ed1e04" />
-
 
 
 > Versión visual del diagrama (capas medallion + ML + consumo): [`docs/diagrama-arquitectura-medallion.html`](docs/diagrama-arquitectura-medallion.html)
