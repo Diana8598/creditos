@@ -232,7 +232,12 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
 
 * <img width="1211" height="706" alt="image" src="https://github.com/user-attachments/assets/3dcaa929-a906-4957-9f40-2114ada60ef2" />
 
-<img width="865" height="382" alt="image" src="https://github.com/user-attachments/assets/7943a73a-6bd0-408e-9934-a74302f63f30" />
+* <img width="1228" height="278" alt="image" src="https://github.com/user-attachments/assets/4bc88d35-9630-43f7-9b63-3babc551d0ae" />
+* <img width="1222" height="378" alt="image" src="https://github.com/user-attachments/assets/1a53839d-d92d-4bea-a6da-c28a798cb656" />
+* <img width="1194" height="370" alt="image" src="https://github.com/user-attachments/assets/ddbf3961-9b30-4de7-9be3-352be63248b9" />
+
+
+
 
 ### 6.2 Serving Endpoint
 
