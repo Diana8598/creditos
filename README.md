@@ -296,10 +296,17 @@ El diagrama completo de la arquitectura medallion —fuente, bronce, plata, oro,
 
 ### Imágenes del Proyecto
 
- **arquitectura_medallion.png: Diagrama de arquitectura Medallion**
-**pipeline_ingesta_1.png, pipeline_ingesta_2.png: Pipeline de ingesta**
-**job_automatizado_1.png, job_automatizado_2.png: Configuración de jobs**
-**resultados_modelos.png: Dashboard de resultados de ML**
-**eda_completo.png: Visualizaciones de análisis exploratorio**
-**app_Scoring de Riesgo: Capturas de la aplicación**
-**dashboard_créditos_1.png, dashboard_oficinas y mora_2.png: Dashboard de métricas**
+ **arquitectura_medallion.png:** Diagrama de arquitectura Medallion.
+ 
+**pipeline_ingesta_1.png, pipeline_ingesta_2.png: Pipeline de ingesta.
+
+**job_automatizado_1.png, job_automatizado_2.png: Configuración de jobs.
+
+**resultados_modelos.png: Dashboard de resultados de ML.
+
+**eda_completo.png: Visualizaciones de análisis exploratorio.
+
+**app_Scoring de Riesgo: Capturas de la aplicación.
+
+**dashboard_créditos_1.png, dashboard_oficinas y mora_2.png: Dashboard de métricas.
+
