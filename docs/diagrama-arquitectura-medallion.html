@@ -35,7 +35,7 @@ body{margin:0;padding:24px 16px;background:#f5f7f9}
 <body>
 <div class="med">
   <h1>Arquitectura Medallion — Modelo de Créditos y Agencias Comerciales</h1>
-  <p class="sub">Pipeline de datos en Databricks · dataset completo BD Creditos.txt · esquema workspace.credito_*</p>
+  <p class="sub">Pipeline de datos, modelo de riesgo de mora y consumo analítico en Databricks · esquema workspace.credito_* · código versionado en GitHub (Diana8598/creditos)</p>
 
   <div class="band src"><div class="tag">FUENTE</div><div class="body">
     <h2>BD Creditos.txt — dataset completo</h2>
@@ -68,17 +68,30 @@ body{margin:0;padding:24px 16px;background:#f5f7f9}
     </div>
   </div></div>
 
-  <div class="arrow"><span class="gl">▼</span><span>consulta de tablas gold</span></div>
+  <div class="arrow"><span class="gl">▼</span><span>features de originación (6 categóricas + 8 numéricas, sin fuga de datos)</span></div>
+
+  <div class="band ml"><div class="tag">ML</div><div class="body">
+    <h2>Modelo de riesgo de mora — entrenamiento y serving</h2>
+    <p class="desc">LogisticRegression (notebook 04, experimento MLflow riesgo_mora_creditos) · holdout acc 0,77 / ROC-AUC 0,645 · modelo registrado en Unity Catalog: workspace.credito_ml.modelo_riesgo_mora v1 · servido en el endpoint "creditos" (payload dataframe_records)</p>
+    <div class="chips"><span class="chip">MLflow tracking</span><span class="chip">Model Registry UC</span><span class="chip">Serving endpoint: creditos</span></div>
+  </div></div>
+
+  <div class="arrow"><span class="gl">▼</span><span>consulta de tablas gold y del endpoint de scoring</span></div>
 
   <div class="band con"><div class="tag">CONSUMO</div><div class="body">
-    <h2>Dashboard AI/BI y Power BI</h2>
-    <p class="desc">Dashboard con KPIs, colocación por agencia, riesgo de mora y productividad comercial · Power BI conectado vía conector Databricks a las tablas gold</p>
+    <h2>Dashboards, app de scoring y Power BI</h2>
+    <div class="grid2">
+      <div class="tbl"><h3>Dashboards AI/BI</h3><p>Colocación por oficina (KPIs, barras por oficina, línea mensual, pivot oficina×mes) · Colocación, mora y productividad por agencia · versionados como .lvdash.json en Git</p></div>
+      <div class="tbl"><h3>App scoring-creditos</h3><p>App Databricks (Flask) que consulta el endpoint "creditos" con OBO auth para evaluar el riesgo de mora de un nuevo crédito · Power BI conectado vía conector Databricks a las tablas gold</p></div>
+    </div>
   </div></div>
 
   <div class="kpis">
     <span><b>2.000</b> créditos</span><span><b>1.900</b> clientes</span><span><b>$55.800,7 MM</b> colocados</span>
     <span><b>23,5%</b> créditos en mora</span><span><b>IMOR 24,1%</b></span><span><b>8</b> agencias comerciales</span>
   </div>
+
+  <p class="sub" style="margin-top:14px">Automatización: job programado "Actualización diaria - Pipeline Créditos Medallion" ejecuta el pipeline Spark Declarative (bronze → silver → gold) cada día · código y dashboards versionados en GitHub y sincronizados vía carpeta Git de Databricks.</p>
 </div>
 </body>
 </html>

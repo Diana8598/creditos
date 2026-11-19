@@ -15,14 +15,16 @@ Este README resuelve, numeral por numeral, el enunciado del proyecto final aplic
 
 ## Tabla de contenido
 
-1. [Caso de Negocio]
-2. Relación Beneficio/Costo 
-3. Arquitectura Propuesta 
-4. Pipeline de Ingesta de Datos 
-5. Modelos de Ciencia de Datos 
-6. App o Visualization 
-   [Continuous Integration (CI/CD)
-8. Anexo: activos del proyecto (Databricks)
+1. [Caso de Negocio](#1-caso-de-negocio)
+2. [Relación Beneficio/Costo](#2-relación-beneficiocosto)
+3. [Arquitectura Propuesta](#3-arquitectura-propuesta)
+4. [Pipeline de Ingesta de Datos](#4-pipeline-de-ingesta-de-datos)
+5. [Modelos de Ciencia de Datos](#5-modelos-de-ciencia-de-datos)
+6. [App o Visualization](#6-app-o-visualization)
+7. [Continuous Integration (CI/CD)](#7-continuous-integration-cicd)
+8. [Anexo: activos del proyecto (Databricks)](#anexo-activos-del-proyecto-databricks)
+   * [Estructura del repositorio](#estructura-del-repositorio)
+   * [Diagrama de arquitectura (HTML)](#diagrama-de-arquitectura-html)
 
 ---
 
@@ -110,6 +112,8 @@ flowchart LR
    <img width="802" height="645" alt="image" src="https://github.com/user-attachments/assets/eb60d91e-feaf-4c99-82bd-26e7b8ed1e04" />
 
 
+
+> Versión visual del diagrama (capas medallion + ML + consumo): [`docs/diagrama-arquitectura-medallion.html`](docs/diagrama-arquitectura-medallion.html)
 
 ### 3.2 Explicación técnica
 
@@ -276,3 +280,24 @@ El proyecto ya satisface parcialmente los criterios y define una hoja de ruta pa
 | Tablas | `workspace.credito_bronze.creditos_raw`, `workspace.credito_silver.creditos_clientes`, `workspace.credito_gold.metricas_agencia`, `workspace.credito_gold.colocacion_mensual` |
 | Modelo | `workspace.credito_ml.modelo_riesgo_mora` v1 · endpoint *creditos* · app *scoring-creditos* |
 | Dashboards | *Créditos - Colocación, Mora y Productividad por Agencia* · *Colocación de Créditos por Oficina* |
+
+### Estructura del repositorio
+
+```
+creditos/
+├── README.md
+├── notebooks/          # 00 bronce, 01 silver, 02 gold, 03 EDA, 04 modelo (exportados .py SOURCE)
+├── pipeline/
+│   ├── bronze/         # ingesta de la capa bronce (00-bronce-ingesta-creditos.py)
+│   ├── silver/         # creditos_clientes.py (MV plata del pipeline SDP)
+│   └── gold/           # metricas_agencia.py, colocacion_mensual.py (MV oro)
+├── dashboards/         # dashboards AI/BI versionados como código
+│   ├── colocacion-creditos-oficina.lvdash.json
+│   └── creditos-colocacion-mora-productividad-agencia.lvdash.json
+├── app/                # app.py + app.yaml (Databricks App scoring-creditos)
+└── docs/               # diagrama-arquitectura-medallion.html
+```
+
+### Diagrama de arquitectura (HTML)
+
+El diagrama completo de la arquitectura medallion —fuente, bronce, plata, oro, capa ML (modelo, registry y serving) y consumo (dashboards, app y Power BI)— está en [`docs/diagrama-arquitectura-medallion.html`](docs/diagrama-arquitectura-medallion.html). Ábrelo en cualquier navegador; no requiere dependencias externas.
