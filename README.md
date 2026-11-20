@@ -234,6 +234,7 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
    Score crediticio permite a las entidades financieras evaluar el nivel de riesgo y facilitar a mejores condiciones de crédito.
    
   <img width="1034" height="630" alt="image" src="https://github.com/user-attachments/assets/a364069a-06e8-46eb-9e98-0952a7761fdc" />
+  <img width="1291" height="847" alt="Captura de pantalla 2026-11-19 190040" src="https://github.com/user-attachments/assets/97705abe-809e-45e4-93d3-b76b65ee329a" />
 
    
 * **Dashboard “Créditos - Colocación, Mora y Productividad por Agencia”**: KPIs de colocación, IMOR y productividad sobre las tablas gold.
