@@ -168,6 +168,11 @@ Cruce de consistencia plata ↔ oro: la suma de `creditos_colocados` en gold (2.
 
 ### 5.1 Estadística descriptiva (EDA)
 
+## Arquitectura del Pipeline
+
+ <img width="1050" height="365" alt="image" src="https://github.com/user-attachments/assets/7e311ea6-4aa2-4fed-9137-9f26577608cf" />
+
+
 **Colocación por tipo de crédito:**
 
 | Tipo | Créditos | Monto ($M) | Ticket prom. ($M) | Tasa EA |
