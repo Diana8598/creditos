@@ -6,7 +6,7 @@
 | **Docente** | Yeis Livis Taborda Henao |
 | **Periodo académico** | II - 2026 |
 | **Fecha de suscripción del acuerdo** | 17/04/2026 |
-| **Estudiantes** | Diana Suárez · Dulfay Murillo — Universidad Autónoma Latinoamericana (UNAULA) |
+| **Estudiantes** | Diana Suárez - Dulfay Murillo — Universidad Autónoma Latinoamericana (UNAULA) |
 | **Dominio del caso** | Colocación y riesgo de cartera de créditos de consumo, libranza, comercial y microcrédito en 8 agencias comerciales de Antioquia (Medellín: Colombia, Belén, Primero de Mayo, Alpujarra, La 80, San Javier; y Envigado e Itagüí) |
 
 Este README resuelve, numeral por numeral, el enunciado del proyecto final aplicado al caso de negocio de **colocación de créditos**, con los resultados reales obtenidos en el EDA, el pipeline medallion, el modelo de ciencia de datos y la capa de visualización/serving construidos en Databricks.
