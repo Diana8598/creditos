@@ -9,7 +9,7 @@
 | **Estudiantes** | Diana Suárez - Dulfay Murillo — Universidad Autónoma Latinoamericana (UNAULA) |
 | **Dominio del caso** | Colocación y riesgo de cartera de créditos de consumo, libranza, comercial y microcrédito en 8 agencias comerciales de Antioquia (Medellín: Colombia, Belén, Primero de Mayo, Alpujarra, La 80, San Javier; y Envigado e Itagüí) |
 
-Este README resuelve, numeral por numeral, el enunciado del proyecto final aplicado al caso de negocio de **colocación de créditos**, con los resultados reales obtenidos en el EDA, el pipeline medallion, el modelo de ciencia de datos y la capa de visualización/serving construidos en Databricks.
+Este documento presenta el desarrollo del proyecto final aplicado al caso de negocio de colocación de créditos. Su objetivo es implementar una solución integral en Databricks que permita analizar datos, construir un modelo predictivo y generar visualizaciones para apoyar la toma de decisiones en la gestión del riesgo crediticio. Asimismo, se describen el EDA, la arquitectura Medallion y la capa de serving desarrollados durante el proyecto.
 
 **Resumen ejecutivo del resultado:** se procesaron **2.000 créditos de 1.900 clientes** (jun–oct 2026) por **$55.800,7 millones COP**, con una mora de **23,5% (470 créditos, saldo en mora $8.365,6M)**. Se construyó un pipeline medallion (bronce → plata → oro) sobre Unity Catalog, un modelo de riesgo de mora en producción (endpoint de serving + app de scoring) y tableros de colocación, mora y productividad por agencia.
 
